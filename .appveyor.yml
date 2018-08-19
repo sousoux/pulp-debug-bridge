@@ -13,8 +13,6 @@ environment:
     MINGW_URL: https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z/download
     MINGW_ARCHIVE: x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
     WITH_FTDI: ON
-    FORCE_FTDI: ON
-    VERBOSE: 1
 
 clone_folder: c:\dev\pulp-bridge
 clone_depth: 5
@@ -22,13 +20,7 @@ clone_depth: 5
 install:
   - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
   - 7z x -y "%MINGW_ARCHIVE%" > nul
-  # - cd
-  # - appveyor DownloadFile http://jaist.dl.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip
-  # - 7z x libusb-win32-bin-1.2.6.0.zip
-  # - dir libusb-win32-bin-1.2.6.0
-  # - dir libusb-win32-bin-1.2.6.0\include
-  # - move libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll libusb0.dll
-  # - dir
+
 before_build:
   - set Path=%CD%\%MINGW_DIR%\bin;%Path%
   - git config --global core.autocrlf input
@@ -44,7 +36,7 @@ build_script:
   - cd build
   - cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX="c:/dev/pulp-bridge/install" -DWithFTDI=$WITH_FTDI -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
   - cmake --build . --target install -- VERBOSE=1
-  - 7z a plpbridge_win64.zip c:/dev/pulp-bridge/install/*.*
+  - 7z a plpbridge_win64.zip c:/dev/pulp-bridge/install/*
   - dir
 
 artifacts:
