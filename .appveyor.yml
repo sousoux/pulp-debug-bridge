@@ -22,7 +22,7 @@ clone_depth: 5
 install:
   - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
   - 7z x -y "%MINGW_ARCHIVE%" > nul
-  - del C:/Program Files/Git/usr/bin/sh.exe
+  - del "C:\Program Files\Git\usr\bin\sh.exe"
 
 before_build:
   - set Path=%CD%\%MINGW_DIR%\bin;%Path%
