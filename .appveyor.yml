@@ -40,4 +40,7 @@ build_script:
   - cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX="c:/dev/pulp-bridge/install" -DForceFTDI=$FORCE_FTDI -DWithFTDI=$WITH_FTDI -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin"
   - mingw32-make all install VERBOSE=1
 
+on_failure:
+  - type "C:\dev\pulp-bridge\build\json-tools\src\json-tools-stamp\json-tools-download-*.log"
+
 test: off
