@@ -60,6 +60,7 @@ include(ExternalProject)
 
 set(EXTERNAL_INSTALL_LOCATION ${CMAKE_BINARY_DIR}/external)
 
+# Passing CMAKE_IGNORE_PATH to subbuilds is to avoid git shell being picked up by mingw
 # Add in JSON-TOOLS
 ExternalProject_Add(
   json-tools
