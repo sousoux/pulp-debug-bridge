@@ -80,6 +80,7 @@ ExternalProject_Add(
   PREFIX ${CMAKE_BINARY_DIR}/pulp-configs
   GIT_REPOSITORY https://github.com/pulp-platform/pulp-configs.git
   GIT_TAG martin
+  CMAKE_ARGS -DCMAKE_IGNORE_PATH=${CMAKE_IGNORE_PATH}
   LOG_DOWNLOAD ON
 )
 
