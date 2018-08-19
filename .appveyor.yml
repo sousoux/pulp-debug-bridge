@@ -28,7 +28,6 @@ before_build:
   - mingw32-make --version
   - cmake --version
   - echo NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%
-
   - cd c:\dev\pulp-bridge
   - md build
 
