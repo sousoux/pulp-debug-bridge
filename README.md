@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/sousoux/pulp-debug-bridge.svg?branch=master)](https://travis-ci.com/sousoux/pulp-debug-bridge)
+[![Build Status](https://travis-ci.com/sousoux/pulp-debug-bridge.svg?branch=martin)](https://travis-ci.com/sousoux/pulp-debug-bridge)
 [![Build status](https://ci.appveyor.com/api/projects/status/uht7cqv15jl3kcd4/branch/martin?svg=true)](https://ci.appveyor.com/project/sousoux/pulp-debug-bridge/branch/martin)
 
 # Pulp debug bridge
