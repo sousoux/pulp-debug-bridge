@@ -25,8 +25,10 @@ install:
   - cd
   - appveyor DownloadFile http://jaist.dl.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip
   - 7z x libusb-win32-bin-1.2.6.0.zip
-  - dir
+  - dir libusb-win32-bin-1.2.6.0
+  - dir libusb-win32-bin-1.2.6.0\include
   - move libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll libusb0.dll
+  - dir
 before_build:
   - set Path=%CD%\%MINGW_DIR%\bin;%Path%
   - git config --global core.autocrlf input
