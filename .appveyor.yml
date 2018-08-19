@@ -47,7 +47,7 @@ build_script:
   - 7z a plpbridge.zip c:/dev/pulp-bridge/install/*.*
 
 artifacts:
-  - path: c:/dev/pulp-bridge/build/plpbridge_win64.zip
+  - path: build/plpbridge_win64.zip
     name: plpbridge_win64
 
 test: off
