@@ -65,7 +65,7 @@ ExternalProject_Add(
   json-tools
   PREFIX ${CMAKE_BINARY_DIR}/json-tools
   GIT_REPOSITORY https://github.com/GreenWaves-Technologies/json-tools
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/json-tools
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/json-tools -DCMAKE_IGNORE_PATH=${CMAKE_IGNORE_PATH}
   LOG_DOWNLOAD ON
 )
 
