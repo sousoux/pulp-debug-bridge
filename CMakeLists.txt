@@ -191,7 +191,11 @@ if (WithFTDI)
             ${binary_dir}/install/include/libftdi1
     )
     set(FTDI_LIB_DIR ${binary_dir}/install/lib)
-    target_link_libraries(libplpbridge PRIVATE ${FTDI_LIB_DIR}/libftdi1.so)
+    if(APPLE)
+      target_link_libraries(libplpbridge PRIVATE ${FTDI_LIB_DIR}/libftdi1.dylib)
+    else()
+      target_link_libraries(libplpbridge PRIVATE ${FTDI_LIB_DIR}/libftdi1.so)
+    endif()
 
   endif()
   target_sources(libplpbridge PRIVATE src/cables/ftdi/ftdi.cpp)
