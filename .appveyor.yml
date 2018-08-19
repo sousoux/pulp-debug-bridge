@@ -4,39 +4,39 @@ skip_commits:
   files:
     - .travis.yml
 
+cache:
+- x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+
 environment:
   matrix:
-  - COMPILER: msys2
-    PLATFORM: x64
-    MSYS2_ARCH: x86_64
-    MSYS2_DIR: msys64
-    MSYSTEM: MINGW64
-    BIT: 64
+  - MINGW_DIR: mingw64
+    MINGW_URL: https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z/download
+    MINGW_ARCHIVE: x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z
+    WITH_FTDI: ON
+    FORCE_FTDI: ON
+    VERBOSE: 1
 
 clone_folder: c:\dev\pulp-bridge
 clone_depth: 5
 
 install:
-  - SET "PATH=C:\%MSYS2_DIR%\%MSYSTEM%\bin;C:\%MSYS2_DIR%\usr\bin;%PATH%"
-  - bash -lc "pacman -S --needed --noconfirm pacman-mirrors"
-  - bash -lc "pacman -S --needed --noconfirm git"
-  - bash -lc "pacman -Syu --noconfirm"
-  - bash -lc "pacman -S --needed --noconfirm mingw-w64-x86_64-toolchain cmake libtool make patch mingw-w64-x86_64-libtool"
+  - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
+  - 7z x -y "%MINGW_ARCHIVE%" > nul
 
 before_build:
+  - set Path=%CD%\%MINGW_DIR%\bin;%Path%
+  - git config --global core.autocrlf input
+  - g++ --version
+  - mingw32-make --version
+  - cmake --version
+  - echo NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%
+
   - cd c:\dev\pulp-bridge
   - md build
-  - bash -lc "g++ --version"
-  - bash -lc "make --version"
-  - bash -lc "cmake --version"
-  - echo NUMBER_OF_PROCESSORS=%NUMBER_OF_PROCESSORS%
-# -DCMAKE_IGNORE_PATH=\"C:/Program Files/Git/usr/bin\"
+
 build_script:
   - cd build
-  - bash -lc "cmake .. -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX=\"c:/dev/pulp-bridge/install\" -DForceFTDI=$FORCE_FTDI -DWithFTDI=$WITH_FTDI"
-  - bash -lc "make all install VERBOSE=1"
-
-on_failure:
-  - type "C:\dev\pulp-bridge\build\json-tools\src\json-tools-stamp\json-tools-download-*.log"
+  - cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX="c:/dev/pulp-bridge/install" -DForceFTDI=$FORCE_FTDI -DWithFTDI=$WITH_FTDI -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
+  - mingw32-make all install VERBOSE=1
 
 test: off
