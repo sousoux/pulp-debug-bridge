@@ -22,13 +22,13 @@ clone_depth: 5
 install:
   - if not exist "%MINGW_ARCHIVE%" appveyor DownloadFile "%MINGW_URL%" -FileName "%MINGW_ARCHIVE%"
   - 7z x -y "%MINGW_ARCHIVE%" > nul
-  - cd
-  - appveyor DownloadFile http://jaist.dl.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip
-  - 7z x libusb-win32-bin-1.2.6.0.zip
-  - dir libusb-win32-bin-1.2.6.0
-  - dir libusb-win32-bin-1.2.6.0\include
-  - move libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll libusb0.dll
-  - dir
+  # - cd
+  # - appveyor DownloadFile http://jaist.dl.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip
+  # - 7z x libusb-win32-bin-1.2.6.0.zip
+  # - dir libusb-win32-bin-1.2.6.0
+  # - dir libusb-win32-bin-1.2.6.0\include
+  # - move libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll libusb0.dll
+  # - dir
 before_build:
   - set Path=%CD%\%MINGW_DIR%\bin;%Path%
   - git config --global core.autocrlf input
@@ -44,5 +44,10 @@ build_script:
   - cd build
   - cmake .. -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX="c:/dev/pulp-bridge/install" -DWithFTDI=$WITH_FTDI -DCMAKE_IGNORE_PATH="C:/Program Files/Git/usr/bin" -DCMAKE_SH="CMAKE_SH-NOTFOUND"
   - cmake --build . --target install -- VERBOSE=1
+  - 7z a plpbridge.zip c:/dev/pulp-bridge/install/*.*
+
+artifacts:
+  - path: c:/dev/pulp-bridge/build/plpbridge_win64.zip
+    name: plpbridge_win64
 
 test: off
