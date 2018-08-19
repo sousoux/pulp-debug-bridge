@@ -33,7 +33,7 @@ before_build:
 # -DCMAKE_IGNORE_PATH=\"C:/Program Files/Git/usr/bin\"
 build_script:
   - cd build
-  - bash -lc "cmake .. -G \"MinGW Makefiles\" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX=\"c:/dev/pulp-bridge/install\" -DForceFTDI=$FORCE_FTDI -DWithFTDI=$WITH_FTDI"
+  - bash -lc "cmake .. -G \"Unix Makefiles\" -DCMAKE_BUILD_TYPE=Debug -DStandaloneApp=YES  -DCMAKE_INSTALL_PREFIX=\"c:/dev/pulp-bridge/install\" -DForceFTDI=$FORCE_FTDI -DWithFTDI=$WITH_FTDI"
   - bash -lc "make all install VERBOSE=1"
 
 on_failure:
